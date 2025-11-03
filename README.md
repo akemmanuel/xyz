@@ -1,4 +1,4 @@
-# NLBAH - Natural Language to Bash Helper
+# XYZ - Natural Language to Bash Helper
 
 A CLI tool that converts natural language commands into bash commands using AI models.
 
@@ -37,12 +37,12 @@ A CLI tool that converts natural language commands into bash commands using AI m
 
 ### Using NVIDIA API (default)
 ```bash
-nlbah "list all files in current directory"
+xyz "list all files in current directory"
 ```
 
 ### Using local Ollama model
 ```bash
-nlbah --local "list all files in current directory"
+xyz --local "list all files in current directory"
 ```
 
 ### Using the binary aliases
@@ -91,9 +91,8 @@ nlbah "run all tests in the test directory"
 ## Scripts
 
 - `npm test`: Run tests (placeholder - add your tests)
-- `nlbah`: Main CLI command
-- `xyz`: Alias for nlbah
-- `asd`: Alias for nlbah
+- `xyz`: Main CLI command
+- `asd`: Alias for xyz
 
 ## License
 

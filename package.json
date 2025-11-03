@@ -1,18 +1,6 @@
 {
-  "name": "nlbah",
+  "name": "xyz",
   "version": "1.0.0",
-  "description": "Natural Language to Bash Helper",
-  "main": "index.js",
-  "bin": {
-    "xyz": "./index.js",
-    "asd": "./index.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": ["cli", "bash", "natural-language", "ai", "ollama"],
-  "author": "Emmanuel",
-  "license": "MIT",
   "description": "A CLI tool that converts natural language commands into bash commands using AI models",
   "type": "commonjs",
   "dependencies": {
