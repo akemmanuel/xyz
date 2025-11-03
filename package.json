@@ -2,6 +2,17 @@
   "name": "xyz",
   "version": "1.0.0",
   "description": "A CLI tool that converts natural language commands into bash commands using AI models",
+  "main": "index.js",
+  "bin": {
+    "xyz": "./index.js",
+    "asd": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["cli", "bash", "natural-language", "ai", "ollama"],
+  "author": "Emmanuel",
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
     "dotenv": "^16.0.0"
