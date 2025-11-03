@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XYZ - Natural Language to Bash Helper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-black">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold">XYZ</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#features" class="text-gray-600 hover:text-black">Features</a>
+                    <a href="#installation" class="text-gray-600 hover:text-black">Installation</a>
+                    <a href="#usage" class="text-gray-600 hover:text-black">Usage</a>
+                    <a href="https://github.com/akemmanuel/xyz" class="text-gray-600 hover:text-black">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl font-bold mb-6">Convert Natural Language to Bash Commands</h1>
+            <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                A powerful CLI tool that transforms your plain English commands into executable bash commands using advanced AI models.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="#installation" class="bg-black text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800">Get Started</a>
+                <a href="https://github.com/akemmanuel/xyz" class="border border-black text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-50">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">✨ Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-3">🧠 Natural Language Processing</h3>
+                    <p class="text-gray-600">Convert natural language to bash commands instantly with AI-powered translation.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-3">🌐 Multi-Model Support</h3>
+                    <p class="text-gray-600">Support for local Ollama models and NVIDIA API with smart fallback mechanism.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-3">⚡ Real-time Streaming</h3>
+                    <p class="text-gray-600">Streaming responses for real-time output as commands are generated.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-3">🔧 Environment Configuration</h3>
+                    <p class="text-gray-600">Easy environment-based configuration with secure API key management.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-3">🛡️ Secure & Reliable</h3>
+                    <p class="text-gray-600">Built with security in mind and reliable fallback mechanisms.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-3">💻 CLI First</h3>
+                    <p class="text-gray-600">Designed specifically for command-line interface with intuitive usage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">📦 Installation</h2>
+            <div class="bg-gray-50 p-8 rounded-lg border border-gray-200 max-w-3xl mx-auto">
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3">1. Clone the Repository</h3>
+                        <pre class="bg-black text-white p-4 rounded overflow-x-auto"><code>git clone https://github.com/akemmanuel/xyz
+cd xyz</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3">2. Install Dependencies</h3>
+                        <pre class="bg-black text-white p-4 rounded overflow-x-auto"><code>bun install</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3">3. Configure Environment</h3>
+                        <pre class="bg-black text-white p-4 rounded overflow-x-auto"><code>cp .env.example .env
+# Edit .env with your configuration</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3">4. Set Up Local Model (Optional)</h3>
+                        <pre class="bg-black text-white p-4 rounded overflow-x-auto"><code># Install Ollama
+curl -fsSL https://ollama.ai/install.sh | sh
+
+# Pull the model
+ollama pull gemma3:4b</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Section -->
+    <section id="usage" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">🎯 Usage</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4">🌟 Using NVIDIA API (Default)</h3>
+                    <pre class="bg-black text-white p-4 rounded overflow-x-auto"><code>xyz "list all files in current directory"</code></pre>
+                </div>
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-semibold mb-4">🏠 Using Local Ollama Model</h3>
+                    <pre class="bg-black text-white p-4 rounded overflow-x-auto"><code>xyz --local "list all files in current directory"</code></pre>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <h3 class="text-2xl font-semibold text-center mb-6">💡 Examples</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <h4 class="font-semibold mb-2">Find large files 🔍</h4>
+                        <pre class="bg-black text-white p-3 rounded text-sm"><code>xyz "find files larger than 100MB"</code></pre>
+                    </div>
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <h4 class="font-semibold mb-2">System monitoring 📊</h4>
+                        <pre class="bg-black text-white p-3 rounded text-sm"><code>xyz "show memory usage"</code></pre>
+                    </div>
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <h4 class="font-semibold mb-2">File operations 📁</h4>
+                        <pre class="bg-black text-white p-3 rounded text-sm"><code>xyz "compress all log files in /var/log"</code></pre>
+                    </div>
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <h4 class="font-semibold mb-2">Development tasks 👨‍💻</h4>
+                        <pre class="bg-black text-white p-3 rounded text-sm"><code>xyz "run all tests in the test directory"</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">XYZ</h2>
+            <p class="text-gray-400 mb-6">Convert natural language to bash commands with AI magic</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://github.com/akemmanuel/xyz" class="text-gray-400 hover:text-white">GitHub</a>
+                <a href="#" class="text-gray-400 hover:text-white">Documentation</a>
+                <a href="#" class="text-gray-400 hover:text-white">Issues</a>
+            </div>
+            <p class="text-gray-500 mt-8">MIT License © 2025 XYZ Project</p>
+        </div>
+    </footer>
+</body>
+</html>
