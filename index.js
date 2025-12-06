@@ -17,7 +17,7 @@ const http = require('http');
 
 function makeLocalRequest() {
   const postData = JSON.stringify({
-    model: process.env.LOCAL_MODEL || 'gemma3:4b',
+    model: process.env.LOCAL_MODEL || 'ministral-3:3b',
     messages: [
       { role: 'system', content: 'Convert natural language to bash commands. Output only the command.' },
       { role: 'user', content: prompt }
