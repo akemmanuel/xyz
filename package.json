@@ -2,13 +2,15 @@
   "name": "xyz",
   "version": "1.0.0",
   "description": "A CLI tool that converts natural language commands into bash commands using AI models",
-  "main": "index.js",
+  "main": "index.ts",
   "bin": {
-    "xyz": "./index.js",
-    "asd": "./index.js"
+    "xyz": "./index.ts",
+    "asd": "./index.ts"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "ts-node index.ts",
+    "build": "tsc index.ts --outDir dist --target es2020 --module commonjs",
+    "dev": "ts-node --transpile-only index.ts"
   },
   "keywords": ["cli", "bash", "natural-language", "ai", "ollama"],
   "author": "Emmanuel",
@@ -16,5 +18,10 @@
   "type": "commonjs",
   "dependencies": {
     "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
   }
 }

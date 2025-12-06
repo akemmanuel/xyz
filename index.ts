@@ -1,31 +1,71 @@
 #!/usr/bin/env node
 
-require('dotenv').config({ path: require('path').join(__dirname, '.env') });
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+import * as https from 'https';
+import * as http from 'http';
 
-const args = process.argv.slice(2);
-const useLocal = args.includes('--local');
-const commandArgs = useLocal ? args.filter(arg => arg !== '--local') : args;
-const prompt = commandArgs.join(' ');
+dotenv.config({ path: path.join(__dirname, '.env') });
+
+interface Message {
+  role: 'system' | 'user';
+  content: string;
+}
+
+interface LocalRequestData {
+  model: string;
+  messages: Message[];
+  stream: boolean;
+}
+
+interface NvidiaRequestData {
+  model: string;
+  messages: Message[];
+  temperature: number;
+  top_p: number;
+  max_tokens: number;
+  seed: number;
+  stream: boolean;
+  chat_template_kwargs: {
+    thinking: boolean;
+  };
+}
+
+interface LocalResponseData {
+  message?: {
+    content?: string;
+  };
+}
+
+interface NvidiaResponseData {
+  choices?: Array<{
+    delta?: {
+      content?: string;
+    };
+  }>;
+}
+
+const args: string[] = process.argv.slice(2);
+const useLocal: boolean = args.includes('--local');
+const commandArgs: string[] = useLocal ? args.filter((arg: string) => arg !== '--local') : args;
+const prompt: string = commandArgs.join(' ');
 
 if (!prompt) {
   console.error('Please provide a command');
   process.exit(1);
 }
 
-const https = require('https');
-const http = require('http');
-
-function makeLocalRequest() {
-  const postData = JSON.stringify({
+function makeLocalRequest(): void {
+  const postData: string = JSON.stringify({
     model: process.env.LOCAL_MODEL || 'ministral-3:3b',
     messages: [
       { role: 'system', content: 'Convert natural language to bash commands. Output only the command.' },
       { role: 'user', content: prompt }
     ],
     stream: true
-  });
+  } as LocalRequestData);
 
-  const req = http.request({
+  const req: http.ClientRequest = http.request({
     hostname: 'localhost',
     port: 11434,
     path: '/api/chat',
@@ -34,16 +74,16 @@ function makeLocalRequest() {
       'Content-Type': 'application/json',
       'Content-Length': Buffer.byteLength(postData)
     }
-  }, (res) => {
-    let buffer = '';
-    res.on('data', (chunk) => {
-      buffer += chunk;
-      const lines = buffer.split('\n');
+  }, (res: http.IncomingMessage) => {
+    let buffer: string = '';
+    res.on('data', (chunk: Buffer) => {
+      buffer += chunk.toString();
+      const lines: string[] = buffer.split('\n');
       buffer = lines.pop() || '';
-      lines.forEach(line => {
+      lines.forEach((line: string) => {
         if (line.trim()) {
           try {
-            const data = JSON.parse(line);
+            const data: LocalResponseData = JSON.parse(line);
             if (data.message?.content) process.stdout.write(data.message.content);
           } catch (e) {}
         }
@@ -52,7 +92,7 @@ function makeLocalRequest() {
     res.on('end', () => {
       if (buffer.trim()) {
         try {
-          const data = JSON.parse(buffer);
+          const data: LocalResponseData = JSON.parse(buffer);
           if (data.message?.content) process.stdout.write(data.message.content);
         } catch (e) {}
       }
@@ -60,13 +100,13 @@ function makeLocalRequest() {
   });
 
   req.setTimeout(30000, () => req.abort());
-  req.on('error', (e) => console.error('Error:', e.message));
+  req.on('error', (e: Error) => console.error('Error:', e.message));
   req.write(postData);
   req.end();
 }
 
-function makeNvidiaRequest() {
-  const postData = JSON.stringify({
+function makeNvidiaRequest(): void {
+  const postData: string = JSON.stringify({
     model: process.env.NVIDIA_MODEL || "deepseek-ai/deepseek-v3.1-terminus",
     messages: [
       {
@@ -86,9 +126,9 @@ function makeNvidiaRequest() {
     chat_template_kwargs: {
       thinking: false
     }
-  });
+  } as NvidiaRequestData);
 
-  const options = {
+  const options: https.RequestOptions = {
     hostname: 'integrate.api.nvidia.com',
     port: 443,
     path: '/v1/chat/completions',
@@ -101,18 +141,18 @@ function makeNvidiaRequest() {
     }
   };
 
-  const req = https.request(options, (res) => {
-    let buffer = '';
-    res.on('data', (chunk) => {
-      buffer += chunk;
-      const lines = buffer.split('\n');
+  const req: http.ClientRequest = https.request(options, (res: http.IncomingMessage) => {
+    let buffer: string = '';
+    res.on('data', (chunk: Buffer) => {
+      buffer += chunk.toString();
+      const lines: string[] = buffer.split('\n');
       buffer = lines.pop() || '';
-      lines.forEach(line => {
+      lines.forEach((line: string) => {
         if (line.trim() && line.startsWith('data: ')) {
-          const dataStr = line.slice(6);
+          const dataStr: string = line.slice(6);
           if (dataStr === '[DONE]') return;
           try {
-            const data = JSON.parse(dataStr);
+            const data: NvidiaResponseData = JSON.parse(dataStr);
             if (data.choices?.[0]?.delta?.content) {
               process.stdout.write(data.choices[0].delta.content);
             }
@@ -122,13 +162,13 @@ function makeNvidiaRequest() {
     });
     res.on('end', () => {
       if (buffer.trim()) {
-        const lines = buffer.split('\n');
-        lines.forEach(line => {
+        const lines: string[] = buffer.split('\n');
+        lines.forEach((line: string) => {
           if (line.trim() && line.startsWith('data: ')) {
-            const dataStr = line.slice(6);
+            const dataStr: string = line.slice(6);
             if (dataStr === '[DONE]') return;
             try {
-              const data = JSON.parse(dataStr);
+              const data: NvidiaResponseData = JSON.parse(dataStr);
               if (data.choices?.[0]?.delta?.content) {
                 process.stdout.write(data.choices[0].delta.content);
               }
@@ -140,7 +180,7 @@ function makeNvidiaRequest() {
   });
 
   req.setTimeout(30000, () => req.abort());
-  req.on('error', (e) => {
+  req.on('error', (e: Error) => {
     console.error('NVIDIA API error:', e.message);
     console.error('Falling back to local API...');
     makeLocalRequest();
