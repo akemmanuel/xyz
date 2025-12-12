@@ -4,8 +4,8 @@
   "description": "A CLI tool that converts natural language commands into bash commands using AI models",
   "main": "index.ts",
   "bin": {
-    "xyz": "./index.ts",
-    "asd": "./index.ts"
+    "xyz": "./dist/index.js",
+    "asd": "./dist/index.js"
   },
   "scripts": {
     "start": "ts-node index.ts",
